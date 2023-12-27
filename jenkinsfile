@@ -1,0 +1,18 @@
+pipeline {
+  agent any
+  environment {
+    MARIADB_CREDS=credentials('mysql-db')
+  }
+  stages {
+    stage('Status') {
+      steps {
+        sh 'liquibase status'
+      }
+    }
+  }
+  post {
+    always {
+      cleanWs()
+    }
+  }
+}
